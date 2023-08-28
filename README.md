@@ -43,13 +43,24 @@ APRENDIENDO DJANDO PASO A PASO
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
-10. Crear las migraciones que estan en mi modelo
+10. crear la Base de Datos (bd_crud_django) en MySQL
+
+11. Crear las migraciones que estan en mi modelo
     python manage.py makemigrations crud_libros
 
-11. Correr migraciones
+12. Correr migraciones
     python manage.py migrate
 
-12. Configurar la conexión a la Base de Datos
+13. Creamos un usuario para entrar al CPanel de Django y poder ver mis modelos (tablas)
+    python manage.py createsuperuser
+
+14. Ya se puede acceder al CPanel de Django atraves de la URL http://127.0.0.1:8000/admin/ estando alli solo nos logueamos con
+    los datos que hemos creado hace un momento. Desde aqui podemos hacer las operaciones CRUD de nuestra aplicación.
+
+15. Para visualizar cada modelo en el CPanel de django tengo que ir al archivo admin.py de mi aplicación
+    e importar el modelo y registrarlo en el CPanel admin de django
+
+16. Configurar la conexión a la Base de Datos
     DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.mysql',
@@ -61,43 +72,32 @@ APRENDIENDO DJANDO PASO A PASO
     }
     }
 
-13. En el archivo views.py de mi apliación crear una vista (función)
+17. En el archivo views.py de mi apliación crear una vista (función)
     from django.http import HttpResponse
 
     def inicio(resquest):
     return HttpResponse("Hola Mundo", status=200)
 
-14. Crear el archivo urls.py en la aplicación (crud_libros)
+18. Crear el archivo urls.py en la aplicación (crud_libros)
     from django.urls import path
     from . import views
 
     urlpatterns = [
-    path('', views.home, name='home'),
-    path('book-detail/<str:id>/', views.book_detail, name='book-detail'),
-    path('view-book/', views.view_book, name='view-book'),
-    path('add-book/', views.add_book, name='add-book'),
-    path('edit-book/<str:id>/', views.edit_book, name='edit-book'),
-    path('delete-book/<str:id>/', views.delete_book, name='delete-book'),
-
+    path('', views.inicio, name='inicio'),
     ]
 
-15. Ahora conectar las URLS de mi aplicación, para esto vamos al archivo uls.py del projecto
+19. Conectar las URLS de mi aplicación con el projecto, para esto vamos al archivo uls.py del projecto
     from django.urls import path, include
     urlpatterns = [
     path('admin/', admin.site.urls),
     path('libros/', include('crud_libros.urls')),
     ]
 
-16. Revisar la consola y visitar la URL http://127.0.0.1:8000
+20. Revisar la consola y visitar la URL http://127.0.0.1:8000
 
-17. Agregar el gitignore de Python y Djando
-    https://github.com/jpadilla/django-project-template/blob/master/.gitignore
+21. Crear la carpeta 'templates' dentro de mi aplicación donde estarán mis archivos .html
 
-18. Crear archivo README.md para describir el proyecto etc.
-
-19. Crear la carpeta 'templates' dentro de mi aplicacion donde estaran mis archivos .html
-
-20. Crear la carpeta 'static' dentro de mi aplicacion, aqui estaran archivos
+22. Crear la carpeta 'static' dentro de mi aplicacion, aqui estaran archivos
     estaticos (css, js, imagenes, etc..)
 
 COMANDO ADICIONALES:

@@ -6,4 +6,5 @@ from django.http import HttpResponse
 
 
 def inicio(resquest):
-    return HttpResponse("Hola Mundo", status=200)
+    return render(resquest, "bases.html")
+    # return HttpResponse("Hola Mundo", status=200)
