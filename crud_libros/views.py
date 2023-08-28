@@ -1,3 +1,9 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 
-# Create your views here.
+
+# Mis Vistas (Funciones)
+
+
+def inicio(resquest):
+    return HttpResponse("Hola Mundo", status=200)

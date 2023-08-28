@@ -1,93 +1,106 @@
 APRENDIENDO DJANDO PASO A PASO
 
-1. Crear entorno virtual con Python
-   virtualenv env
+1.  Crear entorno virtual con Python
+    virtualenv env
 
-2. Activar ambiente virtual en Mac
-   source env/bin/activate
-   deactivate -->Para desactivar mi entorno virtual
+2.  Activar ambiente virtual en Mac
+    source env/bin/activate
+    deactivate -->Para desactivar mi entorno virtual
 
-3. Instalar Djando desde Pip en nuestro entorno virtual.
-   python -m pip install Django
-   pip install Django
+3.  Instalar Djando desde Pip en el entorno virtual.
+    python -m pip install Django
+    pip install Django
 
-4. Crear el proyecto con Djando
-   django-admin startproject project_core .
-   El punto . es crucial porque le dice al script que instale Django en el directorio actual,
-   para el cual el punto sirve de abreviatura
+4.  Instalar Driver para conectar Gestor de BD MySQL con Django
+    pip install mysqlclient
 
-   - Ya en este punto se puede correr el proyecto que a creado Django,
-     usando python manage.py runserver
+5.  Crear el proyecto con Djando
+    django-admin startproject project_core .
+    El punto . es crucial porque le dice al script que instale Django en el directorio actual,
+    para el cual el punto sirve de abreviatura
 
-5. Crear mi primera aplicación en Django
-   python manage.py startapp crud_libros
+    - Ya en este punto se puede correr el proyecto que a creado Django,
+      python manage.py runserver
 
-6. Instalar nuestra aplicación (blog) ya creada en nuestro proyecto
-   archivo settings.py
-   INSTALLED_APPS = [
-   ----,
-   'blog',
-   ]
+6.  Crear el archivo requirements.txt para tener todos mis paquetes a la mano
+    pip freeze > requirements.txt
 
-7. Crear el archivo urls.py en nuestra aplicación creada (blog)
-   from django.urls import path
-   from . import views
+7.  Crear mi primera aplicación en Django
+    python manage.py startapp crud_libros
 
-   urlpatterns = [
+8.  Instalar nuestra aplicación (crud_libros) ya creada en el proyecto
+    archivo settings.py
+    INSTALLED_APPS = [
+    ----,
+    'crud_libros',
+    ]
 
-   # this is the home url
+9.  Crear un Modelo en models.py de nuesta aplicacion, cada clase de nuestro modelo representa una tabla en nuestra BD (bd_crud_django) prefesiblemento los modelos
+    se declaran en singular
+    class Libro(models.Model):
+    titulo = models.CharField(max_length=200)
+    autor = models.CharField(max_length=100)
+    precio = models.DecimalField(max_digits=10, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
-   path('', views.home, name='home'),
+10. Crear las migraciones que estan en mi modelo
+    python manage.py makemigrations crud_libros
 
-   # this is the single book url
+11. Correr migraciones
+    python manage.py migrate
 
-   path('book-detail/<str:id>/', views.book_detail, name='book-detail'),
+12. Configurar la conexión a la Base de Datos
+    DATABASES = {
+    'default': {
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME': 'crud_django',
+    'USER': 'root',
+    'PASSWORD': '',
+    'HOST': 'localhost',
+    'PORT': '3306',
+    }
+    }
 
-   # this is the add book url
+13. En el archivo views.py de mi apliación crear una vista (función)
+    from django.http import HttpResponse
 
-   path('add-book/', views.add_book, name='add-book'),
+    def inicio(resquest):
+    return HttpResponse("Hola Mundo", status=200)
 
-   # this is the edit book url
+14. Crear el archivo urls.py en la aplicación (crud_libros)
+    from django.urls import path
+    from . import views
 
-   path('edit-book/<str:id>/', views.edit_book, name='edit-book'),
+    urlpatterns = [
+    path('', views.home, name='home'),
+    path('book-detail/<str:id>/', views.book_detail, name='book-detail'),
+    path('view-book/', views.view_book, name='view-book'),
+    path('add-book/', views.add_book, name='add-book'),
+    path('edit-book/<str:id>/', views.edit_book, name='edit-book'),
+    path('delete-book/<str:id>/', views.delete_book, name='delete-book'),
 
-   # this is the delete book url
+    ]
 
-   path('delete-book/<str:id>/', views.delete_book, name='delete-book'),
-   ]
+15. Ahora conectar las URLS de mi aplicación, para esto vamos al archivo uls.py del projecto
+    from django.urls import path, include
+    urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('libros/', include('crud_libros.urls')),
+    ]
 
-8. Conectar nuestra aplicación ir a uls.py este archivo esta en el proyecto
-   from django.urls import path, include
-   urlpatterns = [
-   path('admin/', admin.site.urls),
+16. Revisar la consola y visitar la URL http://127.0.0.1:8000
 
-   # registering blog application's urls in project
-
-   path('blog/', include('blog.urls')),
-   ]
-
-9. Correr el proyecto creado en Python & Django
-   python manage.py runserver
-
-10. Revisar la consola y visitar la URL http://127.0.0.1:8000
-
-11. Agregar el gitignore de Python y Djando
+17. Agregar el gitignore de Python y Djando
     https://github.com/jpadilla/django-project-template/blob/master/.gitignore
 
-12. Crear archivo README.md para describir el proyecto etc.
+18. Crear archivo README.md para describir el proyecto etc.
 
-13. Crear la carpeta 'templates' dentro de mi aplicacion donde estaran mis archivos .html
+19. Crear la carpeta 'templates' dentro de mi aplicacion donde estaran mis archivos .html
 
-14. Crear la carpeta 'static' dentro de mi aplicacion, aqui estaran archivos
+20. Crear la carpeta 'static' dentro de mi aplicacion, aqui estaran archivos
     estaticos (css, js, imagenes, etc..)
 
 COMANDO ADICIONALES:
-
-1. Correr migraciones
-   python manage.py migrate
-
-2. Crear migraciones
-   python manage.py makemigrations blog
 
 3. ver todo el historial de migraciones:
    python manage.py showmigrations
@@ -101,15 +114,9 @@ COMANDO ADICIONALES:
 
 6. Instalar Paquete para crear variables de entorno
    pip install django-environ
-7. Crear el archivo requirements.txt
-   pip freeze > requirements.txt
 
-8. Correr archivo requirement.txt
+7. Correr archivo requirement.txt
    pip install -r requirements.txt
-
-9. Driver para conectar MySQL con Django
-   pip install mysqlclient
-   pip install pymysql
 
 Jinja2 (una biblioteca de plantillas)
 Django es un framework web gratuito y de código abierto publicado por primera vez en 2005 por
