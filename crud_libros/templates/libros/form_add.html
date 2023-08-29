@@ -1,0 +1,39 @@
+{% extends 'bases.html' %}
+<!---->
+{% block content %}
+<div class="col-md-6">
+  <div class="card shadow-lg">
+    <div class="card-body">
+      <form
+        action="{% url 'agregar_libro' %}"
+        method="POST"
+        enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label font-weight-bold">Titulo del Libro</label>
+          <input required type="text" name="titulo" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label font-weight-bold">Autor de Libro</label>
+          <input required type="text" name="autor" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label font-weight-bold">Precio</label>
+          <input required type="text" name="precio" class="form-control" />
+        </div>
+
+        <div class="d-grid gap-2 d-md-block text-center">
+          <a href="{% url 'inicio' %}" class="my-3 btn btn-dark">
+            <i class="bi bi-arrow-left"></i>
+            volver
+          </a>
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-file-earmark-plus-fill"></i>
+            Registrar Libro
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

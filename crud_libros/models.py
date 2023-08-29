@@ -17,4 +17,3 @@ class Libro(models.Model):
     """ la clase Meta dentro de un modelo se utiliza para proporcionar metadatos adicionales sobre el modelo."""
     class Meta:
         ordering = ['-created_at']
-        """fields = '__all__'"""

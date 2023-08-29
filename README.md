@@ -1,15 +1,25 @@
 APRENDIENDO DJANDO PASO A PASO
 
-1.  Crear entorno virtual con Python
-    virtualenv env
+1.  Crear un entorno virtual, hay muchas formas
+
+    - Opcion 1: Crear entorno virtual con el paquete virtualenv
+      Si no tienes instalado virtualenv puedes instalarlo de forma global en el sistema atraves de
+      https://pypi.org/project/virtualenv/
+      pip install virtualenv
+      virtualenv env
+      virtualenv --version
+    - Opcion 2: Crear un entorno virtual con el paquete que ya viene por defecto en las ultimas versiones de Python
+      python -m venv env
 
 2.  Activar ambiente virtual en Mac
     source env/bin/activate
     deactivate -->Para desactivar mi entorno virtual
 
-3.  Instalar Djando desde Pip en el entorno virtual.
+3.  Instalar Djando desde el manejador de paquete de Python Pip, el entorno virtual.
     python -m pip install Django
     pip install Django
+    Nota: para instalar Django en una version especifica
+    pip install Django==4.2.4
 
 4.  Instalar Driver para conectar Gestor de BD MySQL con Django
     pip install mysqlclient
@@ -24,6 +34,9 @@ APRENDIENDO DJANDO PASO A PASO
 
 6.  Crear el archivo requirements.txt para tener todos mis paquetes a la mano
     pip freeze > requirements.txt
+    Nota: para instalar los paquetes solo basta ejecutar
+
+    - pip install -r requirements.txt
 
 7.  Crear mi primera aplicación en Django
     python manage.py startapp crud_libros

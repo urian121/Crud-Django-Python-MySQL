@@ -1,0 +1,51 @@
+{% extends 'bases.html' %}
+
+<!---->
+{% block content %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Titulo</th>
+      <th>Autor</th>
+      <th>Precio</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for libro in libros %}
+    <tr>
+      <th>1</th>
+      <td>{{ libro.titulo }}</td>
+      <td>{{ libro.autor }}</td>
+      <td>{{ libro.precio }}</td>
+      <td>
+        <a
+          href="{% url 'view_detail_libro' libro.id %}"
+          type="button"
+          class="btn btn-info">
+          <i class="bi bi-journal-text"></i>
+          Ver detalles
+        </a>
+        <a
+          href="{% url 'view_form_update' libro.id %}"
+          type="button"
+          class="btn btn-primary">
+          <i class="bi bi-arrow-clockwise"></i>
+          Actualizar
+        </a>
+
+        <a
+          href="{% url 'borrar_libro' libro.id %}"
+          type="button"
+          class="btn btn-danger">
+          <i class="bi bi-journal-x"></i>
+          Borra Libro
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
