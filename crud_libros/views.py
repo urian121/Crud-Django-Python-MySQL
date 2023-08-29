@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 from . models import Libro
 
 
@@ -17,17 +17,23 @@ def view_form_add_libro(request):
 
 def add_saved_libro(request):
     if request.method == 'POST':
-        titulo = request.POST['titulo']
-        autor = request.POST['autor']
-        precio = request.POST['precio']
-        post = Libro(titulo=titulo, autor=autor, precio=precio)
-        post.save()
+        titulo = request.POST.get('titulo')
+        autor = request.POST.get('autor')
+        precio = request.POST.get('precio')
 
-    return redirect('list_libros')
+        nuevo_libro = Libro(titulo=titulo, autor=autor, precio=precio)
+        nuevo_libro.save()
+
+        return redirect('list_libros')
+
+    # Renderiza el formulario en caso de método GET
+    return render(request, 'formulario_libro.html')
 
 
 def list_libros(request):
     libros = Libro.objects.all()
+    for libro in libros:
+        print(libro)
     data = {"libros": libros}
     # libros = list(Libro.objects.values())
     return render(request, "libros/list.html", data)
@@ -35,6 +41,7 @@ def list_libros(request):
 
 def view_detail_libro(request, id):
     libro = Libro.objects.get(id=id)
+    # libro = Libro.objects.filter(id=request.id)
     data = {"libro": libro}
     return render(request, "libros/detail.html", data)
 

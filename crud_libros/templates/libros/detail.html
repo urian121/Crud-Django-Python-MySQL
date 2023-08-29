@@ -1,5 +1,9 @@
 {% extends 'bases.html' %}
 <!---->
+{% block title %}Detalles del Libro{% endblock %}
+<!---->
+{#% load static %#}
+<!---->
 {% block content %}
 <div class="col-md-5 mb-2">
   <div class="card">
@@ -13,6 +17,8 @@
       <h5 class="card-title">Titulo: {{ libro.titulo }}</h5>
       <p class="card-text">Autor: {{ libro.autor }}</p>
       <p class="card-text">Precio: {{ libro.precio }}</p>
+      <p class="card-text">{{ libro.created_at|date:"M d, Y" }}</p>
+
       <a href="{% url 'list_libros' %}" class="btn btn-primary">volver</a>
     </div>
   </div>

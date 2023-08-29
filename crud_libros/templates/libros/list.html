@@ -1,8 +1,8 @@
 {% extends 'bases.html' %}
-
 <!---->
-{% block content %}
-
+{% block title %}Lista de Libros{% endblock %}
+<!---->
+{% block content %} {% if libros %}
 <table class="table">
   <thead>
     <tr>
@@ -38,6 +38,7 @@
 
         <a
           href="{% url 'borrar_libro' libro.id %}"
+          onclick="return confirm('Seguro que desea eliminar este libro?')"
           type="button"
           class="btn btn-danger">
           <i class="bi bi-journal-x"></i>
@@ -48,4 +49,11 @@
     {% endfor %}
   </tbody>
 </table>
+
+{% else %}
+
+<div class="alert alert-info" role="alert">No se han encontrado libros</div>
+
+{% endif %}
+<!---->
 {% endblock %}

@@ -7,7 +7,8 @@ class Libro(models.Model):
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
-    """El método __str__() es una función especial en Python que se utiliza para definir
+    """
+    El método __str__() es una función especial en Python que se utiliza para definir
     cómo se debe representar una instancia de un objeto como una cadena de texto legible.
     """
 
@@ -16,4 +17,5 @@ class Libro(models.Model):
 
     """ la clase Meta dentro de un modelo se utiliza para proporcionar metadatos adicionales sobre el modelo."""
     class Meta:
+        db_table = "libros"
         ordering = ['-created_at']
