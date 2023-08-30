@@ -1,0 +1,12 @@
+{% extends 'bases.html' %}
+<!---->
+{% block title %}Error{% endblock %}
+<!---->
+{% block content %}
+<div class="col-md-6">
+  <div class="alert alert-danger text-center" role="alert">
+    <strong> ⚠️ Error</strong>
+    {{ error_message }}
+  </div>
+</div>
+{% endblock %}

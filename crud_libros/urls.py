@@ -19,4 +19,10 @@ urlpatterns = [
     path('actualizar-libro/<str:id>/', views.update_libro, name='update_libro'),
     path('borrar-libro/<int:id>', views.delete_libro, name="borrar_libro"),
 
+
+
+    # Api don Edi
+    path('api/form/', views.form_api, name='form_api'),
+    path('api/form-login/', views.login_api, name='login_api'),
+
 ]

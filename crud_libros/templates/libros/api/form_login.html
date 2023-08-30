@@ -1,0 +1,42 @@
+{% extends 'bases.html' %}
+<!---->
+{% block title %}Login API{% endblock %}
+<!---->
+{% block content %}
+<div class="col-md-6">
+  <div class="card shadow-lg">
+    <div class="card-body">
+      <h4 class="card-title text-center">
+        Login API
+        <hr />
+      </h4>
+      <form action="{% url 'login_api' %}" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label font-weight-bold">Uuario</label>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            class="form-control"
+            required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label font-weight-bold">Clave</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            class="form-control" />
+        </div>
+        <div class="d-grid gap-2 d-md-block text-center">
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-file-earmark-plus-fill"></i>
+            Login
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

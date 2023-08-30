@@ -1,6 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseBadRequest
+from django.core.exceptions import ObjectDoesNotExist
 from . models import Libro
+
+
+import requests
 
 
 # Mis Vistas (Funciones)
@@ -50,16 +54,25 @@ def list_libros(request):
 
 
 def view_detail_libro(request, id):
-    libro = Libro.objects.get(id=id)
-    # libro = Libro.objects.filter(id=request.id)
-    data = {"libro": libro}
-    return render(request, "libros/detail.html", data)
+    try:
+        libro = Libro.objects.get(id=id)
+        # libro = Libro.objects.filter(id=request.id)
+        data = {"libro": libro}
+        return render(request, "libros/detail.html", data)
+    except Libro.DoesNotExist:
+        # Manejar el caso en el que no existe el registro
+        error_message = f"no existe ningún registro para la busqueda id: {id}"
+        return render(request, "libros/error.html", {"error_message": error_message})
 
 
 def view_form_update(request, id):
-    libro = Libro.objects.get(id=id)
-    data = {"libro": libro}
-    return render(request, "libros/form_update.html", data)
+    try:
+        libro = Libro.objects.get(id=id)
+        data = {"libro": libro}
+        return render(request, "libros/form_update.html", data)
+    except ObjectDoesNotExist:
+        error_message = f"El libro con id: {id} no existe."
+        return render(request, "libros/error.html", {"error_message": error_message})
 
 
 def update_libro(request, id):
@@ -77,6 +90,36 @@ def delete_libro(request, id):
     libro.delete()
 
     return redirect('list_libros')
+
+
+def form_api(request):
+    return render(request, "libros/api/form_login.html")
+
+
+def login_api(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        api_url = "http://192.168.10.20/api-token-auth/"
+        data = {
+            "username": username,
+            "password": password
+        }
+
+        try:
+            response = requests.post(api_url, data=data)
+            response.raise_for_status()  # Raises an exception for non-2xx status codes
+
+            # Assuming a successful response has status code 200
+            return HttpResponse("Login successful")
+
+        except requests.exceptions.RequestException as e:
+            # Handle request-related exceptions here
+            return HttpResponse("Login failed: {}".format(e))
+
+    # Render the form in case of a GET request
+    return HttpResponse('Render the login form here')
 
 
 def saludar(request):
