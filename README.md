@@ -115,6 +115,15 @@ APRENDIENDO DJANDO PASO A PASO
 
 COMANDO ADICIONALES:
 
+- para verificar si tienes python instalado solo baston con ejecutar
+  python --version
+  tambien se verifica si tienes PIP el administrador de paquetes para Python instalado que ya desde la version 3.4 ya viene includo con python es
+  decir que al instalar Python podria verificar si tiene pip asi:
+  pip --version
+  Si no lo tiene instalado lo puede instalar asi:
+  https://pypi.org/project/pip/
+  pip install pip
+
 3. ver todo el historial de migraciones:
    python manage.py showmigrations
 
@@ -164,3 +173,8 @@ python manage.py createsuperuser
 Luego escribir cualquier usuario y clave
 Las migraciones comprenden;la autentiticafion por defecto de Django
 Existen vistas de clases y vistas de funciones.
+
+Las vistas en Django son funciones de Python que reciben solicitudes HTTP y devuelven una respuesta HTTP, como un documento
+HTML.
+
+Un QuerySet es una colección de datos de una base de datos.

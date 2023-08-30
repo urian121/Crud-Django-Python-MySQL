@@ -32,8 +32,18 @@ def add_saved_libro(request):
 
 def list_libros(request):
     libros = Libro.objects.all()
+    print(libros)
+    books = Libro.objects.all().values()
+    print(books)
+
+    books_2 = list(Libro.objects.all().values())
+    print(books_2)
+    libros_3 = list(Libro.objects.values())
+    print(libros_3)
+    """
     for libro in libros:
         print(libro)
+    """
     data = {"libros": libros}
     # libros = list(Libro.objects.values())
     return render(request, "libros/list.html", data)
