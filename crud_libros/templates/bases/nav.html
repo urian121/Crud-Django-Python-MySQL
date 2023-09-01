@@ -1,6 +1,15 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'inicio' %}">Crud Django</a>
+    {% load static %}
+
+    <a class="navbar-brand" href="{% url 'inicio' %}">
+      <img
+        src="{% static 'imgs/logo_django.png' %}"
+        alt="logo"
+        style="width: 30px" />
+      Crud Django
+    </a>
+
     <button
       class="navbar-toggler"
       type="button"
