@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib import messages
 from . models import Libro
 
 
@@ -27,6 +28,9 @@ def add_saved_libro(request):
 
         nuevo_libro = Libro(titulo=titulo, autor=autor, precio=precio)
         nuevo_libro.save()
+
+        messages.success(
+            request, "Felicitaciones, el libro fue registrado correctamente")
 
         return redirect('list_libros')
 
@@ -125,38 +129,3 @@ def login_api(request):
 def saludar(request):
     # pass
     return HttpResponse("Hola Mundo", status=200)
-
-
-""" 
-def emp(request):
-	if request.method == "POST":
-		form = EmployeeForm (request.POST) # here "form" is one varible
-		if form.is_valid():
-			try:
-				form.save()
-				return redirect("/show")
-			except:
-				pass
-	else:
-		form = EmployeeForm()
-	return render(request,"index.html",{'form':form})
- 
- 
-def update(request,id):
-	employee = Employee.objects.get(id=id)
-	form = EmployeeForm(request.POST, instance=employee)
-	if form.is_valid():
-		form.save()
-		return redirect('/show')
-	return render(request,"edit.html",{'employee':employee})
- 
-def tutorial_detail(request, pk):
-    try: 
-        tutorial = Tutorial.objects.get(pk=pk) 
-    except Tutorial.DoesNotExist: 
-        return JsonResponse({'message': 'The tutorial does not exist'}, status=status.HTTP_404_NOT_FOUND) 
- 
-    if request.method == 'GET': 
-        tutorial_serializer = TutorialSerializer(tutorial) 
-        return JsonResponse(tutorial_serializer.data) 
-"""
